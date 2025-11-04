@@ -10,132 +10,75 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
-    :root { --primary: #3B82F6; --bg:#0b1220; --card:#101826; --line:#1f2a44; --txt:#e5e7eb; }
-    * { box-sizing: border-box }
-    body { margin:0; background:var(--bg); color:var(--txt); font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial; }
-    header { display:flex; align-items:center; gap:10px; padding:16px 18px; border-bottom:1px solid var(--line); position:sticky; top:0; background:#0d1424; }
-    header img { width:28px; height:28px }
-    header h1 { font-size:18px; margin:0 }
-    main { max-width:960px; margin:0 auto; padding:20px; display:grid; gap:16px }
-    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; }
-    .card h2 { margin:0 0 8px; font-size:18px }
-    .card p { margin:0 0 12px; opacity:.9 }
-    .btn { display:inline-block; padding:10px 14px; border-radius:10px; background:var(--primary); color:#fff; text-decoration:none; font-weight:600; }
-    .row { display:flex; gap:10px; flex-wrap:wrap }
-    .muted { color:#9ca3af; font-size:13px }
-    footer { padding:20px; text-align:center; color:#94a3b8 }
-    .notice { background:#112037; border:1px dashed #294064; padding:12px; border-radius:12px; margin:8px 0 0 }
-    .install { background:#0e1a31; border:1px solid #243a63; padding:12px; border-radius:10px; display:none; }
+    :root { --primary:#3B82F6; --bg:#0b1220; --card:#101826; --line:#1f2a44; --txt:#e5e7eb; }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    .wrap{max-width:960px;margin:0 auto;padding:20px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+    h1{margin:0 0 8px;font-size:20px}
+    p{margin:0 0 14px;opacity:.9}
+    .btn{display:inline-block;padding:12px 16px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600}
+    .btn.secondary{background:#334155}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .install{background:#0e1a31;border:1px solid #243a63;padding:12px;border-radius:10px;display:none;margin-top:14px}
+    .notice{background:#112037;border:1px dashed #294064;padding:12px;border-radius:12px;margin-top:12px}
   </style>
 </head>
 <body>
-  <header>
-    <img src="icons/icon-96.png" alt="">
-    <h1>PODIPO</h1>
-  </header>
-  <main>
-    <section class="card">
-      <h2>Vitaj v bráne do tvojej knižnice</h2>
-      <p>Prihlás sa raz do Spreamu a vracaj sa sem kedykoľvek – blogy, videá, kurzy. Môžeš si pridať appku na plochu a zapnúť upozornenia.</p>
+  <div class="wrap">
+    <div class="card">
+      <h1>PODIPO – brána do tvojej knižnice</h1>
+      <p>Otvor PODIPO a pokračuj priamo v Spreame. Pri prvom otvorení sa prihlás/registruj – nabudúce ťa to pustí jedným klikom.</p>
+
+      <!-- Primárne CTA – Home -->
+      <a class="btn" href="https://jaroslavkrkoska.spream.co" target="_self" rel="noopener">Otvoriť PODIPO</a>
+
+      <!-- Sekundárne CTA – Registrácia -->
+      <div class="row" style="margin-top:10px">
+        <a class="btn secondary" href="https://jaroslavkrkoska.spream.co/register" target="_self" rel="noopener">Registrovať sa</a>
+      </div>
+
+      <!-- Inštalácia: Android zobrazí tlačidlo -->
       <div id="installBox" class="install">
-        <b>Inštalovať PODIPO na plochu</b><br>
-        <div class="row">
+        <b>Pridať na plochu</b><br>
+        <div class="row" style="margin-top:8px">
           <button id="installBtn" class="btn">Inštalovať</button>
-          <button id="dismissBtn" class="btn" style="background:#334155">Neskôr</button>
+          <button id="dismissBtn" class="btn secondary">Neskôr</button>
         </div>
       </div>
-      <div class="notice muted">Tip: Po pridaní na plochu si prihlásenie do Spreamu zapamätá pre pohodlný návrat.</div>
-    </section>
 
-    <section class="grid">
-      <div class="card">
-        <h2>Nové videá</h2>
-        <p>Najčerstvejší obsah pre podnikateľov.</p>
-        <a class="btn" href="https://jaroslavkrkoska.spream.co/pages/home" rel="noopener" target="_self">Otvoriť</a>
+      <!-- iOS hint: iPhone nemá tlačidlo Inštalovať -->
+      <div id="iosHint" class="notice" style="display:none;">
+        iPhone: otvoriť v <b>Safari</b> → <b>Share</b> → <b>Add to Home Screen</b>.
       </div>
-      <div class="card">
-        <h2>Blogy</h2>
-        <p>Tipy a návody – bez registrácie aj s prihlásením.</p>
-        <a class="btn" href="https://jaroslavkrkoska.spream.co/pages/home" rel="noopener" target="_self">Otvoriť</a>
-      </div>
-      <div class="card">
-        <h2>Kurzy</h2>
-        <p>Platené aj voľné moduly na jednom mieste.</p>
-        <a class="btn" href="https://jaroslavkrkoska.spream.co/pages/home" rel="noopener" target="_self">Otvoriť</a>
-      </div>
-      <div class="card">
-        <h2>Mentoring / Kontakt</h2>
-        <p>Rezervuj si mentoring alebo pošli správu.</p>
-        <a class="btn" href="https://jaroslavkrkoska.spream.co/pages/home" rel="noopener" target="_self">Otvoriť</a>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Upozornenia</h2>
-      <p>Zapni si informácie o nových videách a blogoch (na Androide hneď; na iPhone po pridaní na plochu).</p>
-      <div class="row">
-        <button class="btn" id="notifyBtn">Zapnúť upozornenia</button>
-        <span class="muted">* Vyžaduje súhlas; iOS funguje pre appku pridanú na plochu.</span>
-      </div>
-    </section>
-  </main>
-  <footer>© PODIPO</footer>
+    </div>
+  </div>
 
   <script>
-    // Replace deep links here:
-    const LINKS = {
-      VIDEOS: "https://jaroslavkrkoska.spream.co/pages/home",
-      BLOGS: "https://jaroslavkrkoska.spream.co/pages/home",
-      COURSES: "https://jaroslavkrkoska.spream.co/pages/home",
-      MENTORING: "https://jaroslavkrkoska.spream.co/pages/home"
-    };
-    // Apply links (keeps target=_self so cookies/session persist)
-    document.querySelectorAll('a.btn').forEach(a => {
-      if(a.parentElement.querySelector('h2')) {
-        const key = a.parentElement.querySelector('h2').textContent.toUpperCase().split(' ')[0];
-      }
-    });
+    // iOS vs. Android – iOS zobrazí návod, Android tlačidlo Inštalovať
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if (isIOS && !isStandalone) document.getElementById('iosHint').style.display = 'block';
 
-    // PWA install flow
+    // Android PWA install flow
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       document.getElementById('installBox').style.display = 'block';
     });
-    document.getElementById('installBtn').addEventListener('click', async () => {
+    document.getElementById('installBtn')?.addEventListener('click', async () => {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
       deferredPrompt = null;
       document.getElementById('installBox').style.display = 'none';
     });
-    document.getElementById('dismissBtn').addEventListener('click', () => {
+    document.getElementById('dismissBtn')?.addEventListener('click', () => {
       document.getElementById('installBox').style.display = 'none';
     });
 
-    // Service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
-
-    // Push (placeholder) — OneSignal Web Push
-    document.getElementById('notifyBtn').addEventListener('click', () => {
-      alert('Notifikácie pripravíme s OneSignal (potrebujeme tvoje APP ID a doménu).');
-    });
-
-    // Fill the links
-    document.querySelectorAll('.card').forEach(card => {
-      const h2 = card.querySelector('h2');
-      const a = card.querySelector('a.btn');
-      if(!h2 || !a) return;
-      const t = h2.textContent.toLowerCase();
-      if(t.includes('videá')) a.href = LINKS.VIDEOS;
-      else if(t.includes('blogy')) a.href = LINKS.BLOGS;
-      else if(t.includes('kurzy')) a.href = LINKS.COURSES;
-      else if(t.includes('mentoring')) a.href = LINKS.MENTORING;
-    });
+    // Notifikácie sú zatiaľ vypnuté – OneSignal doplníme neskôr
   </script>
 </body>
 </html>
