@@ -10,57 +10,101 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
-    :root { --primary:#3B82F6; --bg:#0b1220; --card:#101826; --line:#1f2a44; --txt:#e5e7eb; }
+    :root { --primary:#3B82F6; --bg:#0b1220; --card:#0e172a; --line:#1f2a44; --txt:#e5e7eb; --muted:#94a3b8; }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial}
-    .wrap{max-width:960px;margin:0 auto;padding:20px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
-    h1{margin:0 0 8px;font-size:20px}
-    p{margin:0 0 14px;opacity:.9}
-    .btn{display:inline-block;padding:12px 16px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600}
+    body{margin:0;background:radial-gradient(1000px 600px at 10% -10%, #1b2550 0%, transparent 60%), var(--bg);color:var(--txt);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    .wrap{max-width:980px;margin:0 auto;padding:24px}
+    .hero{display:grid;grid-template-columns: 1.1fr 1fr; gap:24px; align-items:center}
+    .card{background:linear-gradient(180deg,#0f1a33 0%, #0b1325 100%);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .logo{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+    .logo img{width:52px;height:52px;border-radius:12px}
+    h1{margin:6px 0 6px;font-size:30px;line-height:1.2}
+    .sub{color:var(--muted);margin:0 0 18px}
+    .btn{display:inline-block;padding:12px 18px;border-radius:12px;background:var(--primary);color:#fff;text-decoration:none;font-weight:700}
     .btn.secondary{background:#334155}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .install{background:#0e1a31;border:1px solid #243a63;padding:12px;border-radius:10px;display:none;margin-top:14px}
-    .notice{background:#112037;border:1px dashed #294064;padding:12px;border-radius:12px;margin-top:12px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .benefit{background:#0c1430;border:1px solid #233056;border-radius:12px;padding:12px}
+    .install{background:#0e1a31;border:1px solid #243a63;padding:14px;border-radius:12px;display:none}
+    .hint{background:#112037;border:1px dashed #294064;padding:12px;border-radius:12px;display:none}
+    .hint b{color:#fff}
+    .muted{color:var(--muted)}
+    details{background:#0c1430;border:1px solid #233056;border-radius:12px;padding:12px}
+    summary{cursor:pointer;font-weight:700}
+    footer{margin-top:28px;color:#8aa0c7;text-align:center}
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <h1>PODIPO – brána do tvojej knižnice</h1>
-      <p>Otvor PODIPO a pokračuj priamo v Spreame. Pri prvom otvorení sa prihlás/registruj – nabudúce ťa to pustí jedným klikom.</p>
+    <section class="hero">
+      <div class="card">
+        <div class="logo">
+          <!-- použijeme už existujúcu ikonku v projekte -->
+          <img src="icons/icon-192.png" alt="PODIPO logo">
+          <div class="muted">PODIPO</div>
+        </div>
+        <h1>PODIPO – brána do tvojej knižnice</h1>
+        <p class="sub">
+          Otvor PODIPO a pokračuj priamo v Spreame. Pri prvom otvorení sa prihlás/registruj – nabudúce ideš jedným klikom.
+        </p>
 
-      <!-- Primárne CTA – Home -->
-      <a class="btn" href="https://jaroslavkrkoska.spream.co" target="_self" rel="noopener">Otvoriť PODIPO</a>
+        <!-- CTA tlačidlá -->
+        <div class="row" style="margin-bottom:14px">
+          <a class="btn" href="https://jaroslavkrkoska.spream.co" target="_self" rel="noopener">Otvoriť PODIPO</a>
+          <a class="btn secondary" href="https://jaroslavkrkoska.spream.co/register" target="_self" rel="noopener">Registrovať sa</a>
+        </div>
 
-      <!-- Sekundárne CTA – Registrácia -->
-      <div class="row" style="margin-top:10px">
-        <a class="btn secondary" href="https://jaroslavkrkoska.spream.co/register" target="_self" rel="noopener">Registrovať sa</a>
-      </div>
+        <!-- ANDROID: Uložiť na plochu -->
+        <div id="installBox" class="install">
+          <b>Uložiť na plochu (Android)</b><br>
+          Pridaj si PODIPO ako aplikáciu – rýchly prístup, žiadne hľadanie.
+          <div class="row" style="margin-top:10px">
+            <button id="installBtn" class="btn">Uložiť na plochu</button>
+            <button id="dismissBtn" class="btn secondary">Neskôr</button>
+          </div>
+        </div>
 
-      <!-- Inštalácia: Android zobrazí tlačidlo -->
-      <div id="installBox" class="install">
-        <b>Pridať na plochu</b><br>
-        <div class="row" style="margin-top:8px">
-          <button id="installBtn" class="btn">Inštalovať</button>
-          <button id="dismissBtn" class="btn secondary">Neskôr</button>
+        <!-- iOS: návod -->
+        <div id="iosHint" class="hint">
+          <b>iPhone:</b> Otvor v <b>Safari</b> → ťukni <b>Share</b> (štvorček so šípkou) → <b>Add to Home Screen</b>.
         </div>
       </div>
 
-      <!-- iOS hint: iPhone nemá tlačidlo Inštalovať -->
-      <div id="iosHint" class="notice" style="display:none;">
-        iPhone: otvoriť v <b>Safari</b> → <b>Share</b> → <b>Add to Home Screen</b>.
+      <div class="card">
+        <h2 style="margin-top:0">Prečo si appku pridať?</h2>
+        <div class="benefits">
+          <div class="benefit">⚡ <b>Rýchly prístup</b><br>Ikonka na ploche – otvoríš a sleduješ.</div>
+          <div class="benefit">🔒 <b>Prihlásenie zostáva</b><br>Raz sa prihlásiš a ideš.</div>
+          <div class="benefit">🎯 <b>Všetko na jednom mieste</b><br>Blogy, videá, kurzy, mentoring.</div>
+          <div class="benefit">🚀 <b>Bez chaosu</b><br>Presne kam potrebuješ, bez hľadania linkov.</div>
+        </div>
+        <div style="margin-top:14px">
+          <details>
+            <summary>Nemám ikonku „Uložiť na plochu“ – čo s tým?</summary>
+            <div class="muted" style="margin-top:8px">
+              • Na iPhone pridávaš cez <b>Safari → Share → Add to Home Screen</b> (Apple nezobrazuje tlačidlo).<br>
+              • V aplikáciách Facebook/LinkedIn ťukni najprv na <b>Otvoriť v Safari</b>, až potom pridaj na plochu.
+            </div>
+          </details>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <footer>© PODIPO</footer>
   </div>
 
   <script>
-    // iOS vs. Android – iOS zobrazí návod, Android tlačidlo Inštalovať
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    // iOS vs. Android
+    const ua = navigator.userAgent.toLowerCase();
+    const isIOS = /iphone|ipad|ipod/.test(ua);
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    if (isIOS && !isStandalone) document.getElementById('iosHint').style.display = 'block';
 
-    // Android PWA install flow
+    if (isIOS && !isStandalone) {
+      document.getElementById('iosHint').style.display = 'block';
+    }
+
+    // Android PWA install flow (zobraz tlačidlo len keď prehliadač dovolí)
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -78,7 +122,10 @@
       document.getElementById('installBox').style.display = 'none';
     });
 
-    // Notifikácie sú zatiaľ vypnuté – OneSignal doplníme neskôr
+    // Service worker (ponechávame – musí byť registrovaný v projekte)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
   </script>
 </body>
 </html>
